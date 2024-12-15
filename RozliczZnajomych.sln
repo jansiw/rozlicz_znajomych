@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RozliczZnajomych.Server", "RozliczZnajomych.Server\RozliczZnajomych.Server.csproj", "{FB9492D5-5237-4A5F-83B7-4A4C2F0FC769}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "rozliczznajomych.client", "rozliczznajomych.client\rozliczznajomych.client.esproj", "{9570F7D2-9F93-4F97-9535-FF3E5EBFA876}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB9492D5-5237-4A5F-83B7-4A4C2F0FC769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9492D5-5237-4A5F-83B7-4A4C2F0FC769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9492D5-5237-4A5F-83B7-4A4C2F0FC769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9492D5-5237-4A5F-83B7-4A4C2F0FC769}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9570F7D2-9F93-4F97-9535-FF3E5EBFA876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9570F7D2-9F93-4F97-9535-FF3E5EBFA876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9570F7D2-9F93-4F97-9535-FF3E5EBFA876}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9570F7D2-9F93-4F97-9535-FF3E5EBFA876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9570F7D2-9F93-4F97-9535-FF3E5EBFA876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9570F7D2-9F93-4F97-9535-FF3E5EBFA876}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1AD7F2C2-4013-445C-9043-D448A92520CD}
+	EndGlobalSection
+EndGlobal

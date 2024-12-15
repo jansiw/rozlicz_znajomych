@@ -1,0 +1,6 @@
+@RozliczZnajomych.Server_HostAddress = http://localhost:5207
+
+GET {{RozliczZnajomych.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
