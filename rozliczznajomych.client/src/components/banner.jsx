@@ -7,8 +7,8 @@ const Banner = () => {
             <div className="banner">
                 <Link className="text" to="/">Rozlicz znajomych</Link>
                 <div className="links">
-                    <Link className="link" to="/login">Zaloguj siê</Link>
-                    <Link className="link" to="/register">Zarejestruj siê</Link>
+                    <Link className="link" to="/login">Zaloguj sie</Link>
+                    <Link className="link" to="/register">Zarejestruj sie</Link>
                 </div>
             </div>
     )

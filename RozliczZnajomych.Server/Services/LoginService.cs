@@ -14,5 +14,9 @@ namespace RozliczZnajomych.Server.Services
         {
             _loginRepository.AddUser(account);
         }
+        public bool CheckUserCredentials(string username, string password)
+        {
+           return _loginRepository.CheckUserCredentials(username, password);
+        }
     }
 }

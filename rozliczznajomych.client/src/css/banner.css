@@ -22,7 +22,8 @@
 
 .links {
     display: flex;
-    gap: 15px; /* Odstêpy miêdzy linkami */
+    gap: 15px;
+    margin-right:30px;
 }
 
 .link {

@@ -20,5 +20,17 @@ namespace RozliczZnajomych.Server.Controllers
             _loginService.AddUser(account);
             return Ok();
         }
+        [HttpGet]
+        public IActionResult CheckUser(string username,string password)
+        {
+            if( _loginService.CheckUserCredentials(username, password))
+            {
+                return Ok();
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
     }
 }

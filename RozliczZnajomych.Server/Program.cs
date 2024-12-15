@@ -22,12 +22,19 @@ else
 {
     connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
 }
-
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("FrontEndClient", corsPolicyBuilder => corsPolicyBuilder
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .SetIsOriginAllowed(_ => true)
+        .AllowCredentials());
+});
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connection));
 
 var app = builder.Build();
-
+app.UseCors("FrontEndClient");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
