@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using RozliczZnajomych.Server.Models;
 using RozliczZnajomych.Server.Services;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace RozliczZnajomych.Server.Controllers
 {
@@ -17,20 +19,34 @@ namespace RozliczZnajomych.Server.Controllers
         [HttpPost]
         public IActionResult AddUser([FromBody] Account account)
         {
-            _loginService.AddUser(account);
-            return Ok();
+            string result = _loginService.AddUser(account);
+            if (result =="Uzytkownik zostal pomyslnie dodany")
+            {
+                return Ok(result);
+            }
+            return Conflict(result);
+        }
+        [HttpPost]
+        public IActionResult Login([FromBody] LoginRequest request)
+        {
+            if (_loginService.CheckUserCredentials(request.Username, request.Password))
+            {
+                var token = _loginService.GenerateToken(request.Username);
+                return Ok(new { Token = token });
+            }
+            return Unauthorized("Invalid username or password.");
         }
         [HttpGet]
-        public IActionResult CheckUser(string username,string password)
+        public IActionResult CheckToken(string token)
         {
-            if( _loginService.CheckUserCredentials(username, password))
+            var claimsPrincipal = _loginService.ValidateToken(token);
+            if (claimsPrincipal != null)
             {
-                return Ok();
+                var username = claimsPrincipal.FindFirst(ClaimTypes.Name)?.Value;
+                return Ok(new { Message = "Token is valid.", Username = username });
             }
-            else
-            {
-                return Unauthorized();
-            }
+            return Unauthorized("Invalid or expired token.");
         }
+
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using RozliczZnajomych.Server.Repositories;
 using RozliczZnajomych.Server.Services;
 using RozliczZnajomych.Server.DataAccess;
+using RozliczZnajomych.Server.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,6 +23,8 @@ else
 {
     connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
 }
+//builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("FrontEndClient", corsPolicyBuilder => corsPolicyBuilder

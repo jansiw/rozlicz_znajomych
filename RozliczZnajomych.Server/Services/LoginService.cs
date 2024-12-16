@@ -1,5 +1,6 @@
 ﻿using RozliczZnajomych.Server.Repositories;
 using RozliczZnajomych.Server.Models;
+using System.Security.Claims;
 
 namespace RozliczZnajomych.Server.Services
 {
@@ -10,13 +11,20 @@ namespace RozliczZnajomych.Server.Services
         {
             _loginRepository = loginRepository;
         }
-        public void AddUser(Account account)
+        public string AddUser(Account account)
         {
-            _loginRepository.AddUser(account);
+           return _loginRepository.AddUser(account);
         }
         public bool CheckUserCredentials(string username, string password)
         {
            return _loginRepository.CheckUserCredentials(username, password);
+        }
+        public string GenerateToken(string username)
+        {
+            return _loginRepository.GenerateToken(username);
+        }
+        public ClaimsPrincipal ValidateToken(string token) { 
+            return _loginRepository.ValidateToken(token);
         }
     }
 }

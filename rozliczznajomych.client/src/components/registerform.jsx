@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-const RegisterForm = ({user, onSubmit,isLogin}) => {
+import CircularProgress from '@mui/material/CircularProgress';
+const RegisterForm = ({user, onSubmit,isLogin, isloading}) => {
     return (
         <div>
             <form onSubmit={onSubmit}>
@@ -17,7 +18,7 @@ const RegisterForm = ({user, onSubmit,isLogin}) => {
                     onChange={(e) => user.setPassword(e.target.value)}
                     required>
                 </input><hr />
-                <button type="submit">{isLogin ? "Zaloguj sie" : "Zarejestruj sie"}</button>
+                {isloading ? <CircularProgress/>:<button type="submit">{isLogin ? "Zaloguj sie" : "Zarejestruj sie"}</button>}
             </form>
         </div>
     )
