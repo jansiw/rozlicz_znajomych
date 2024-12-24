@@ -34,8 +34,18 @@ builder.Services.AddCors(opt =>
         .AllowCredentials());
 });
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connection));
-
+    options.UseMySql(
+        connection,
+        new MySqlServerVersion(new Version(8, 0)), // Zmieñ wersjê na odpowiedni¹ dla Twojej instalacji MySQL
+        mySqlOptions =>
+        {
+            mySqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5, // Maksymalna liczba ponownych prób
+                maxRetryDelay: TimeSpan.FromSeconds(10), // Maksymalny czas oczekiwania pomiêdzy próbami
+                errorNumbersToAdd: null // Opcjonalna lista dodatkowych numerów b³êdów, które maj¹ byæ obs³ugiwane jako przejœciowe
+            );
+        }
+    ));
 var app = builder.Build();
 app.UseCors("FrontEndClient");
 // Configure the HTTP request pipeline.
