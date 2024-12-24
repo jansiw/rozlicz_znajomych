@@ -7,12 +7,18 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToken } from '../components/TokenContext';
 import { ListGroup } from 'react-bootstrap';
-const API_BASE = "https://localhost:7257/api/Login"
+import Image from 'react-bootstrap/Image';
+import UploadProfilePicture from '../components/UploadProfilePicture';
+const API_BASE = "https://localhost:7257/api"
 
 
 const Profil = () => {
     const { token, setToken } = useToken();
     const navigate = useNavigate();
+    const [username, setUsername] = useState("");
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [userId, setUserId] = useState(null);
+    const [choice, setChoice] = useState(0);
     const CheckToken = () => {
         const token = localStorage.getItem('token'); // Pobieranie tokena z LocalStorage
         if (!token) {
@@ -21,10 +27,12 @@ const Profil = () => {
             return;
         }
 
-        axios.get(`${API_BASE}/CheckToken?token=${token}`)
+        axios.get(`${API_BASE}/Login/CheckToken?token=${token}`)
             .then(response => {
                 if (response.status === 200) {
-                    console.log(`Ju� jeste� zalogowany jako ${response.data.username}`);
+                    setUsername(response.data.username);
+                    fetchProfilePicture(response.data.userId);
+                    setUserId(response.data.userId);
                 }
             })
             .catch(error => {
@@ -37,17 +45,41 @@ const Profil = () => {
             });
             
     };
+    const fetchProfilePicture = (userId) => {
+        axios.get(`${API_BASE}/User/GetProfilePicture/profile-picture/${userId}`, {
+            responseType: 'blob' // Oczekujemy obrazu w odpowiedzi
+        })
+            .then(response => {
+                // Konwersja Blob na URL i ustawienie zdjęcia
+                const imageUrl = URL.createObjectURL(response.data);
+                setProfilePicture(imageUrl);
+            })
+            .catch(error => {
+                console.error("Nie udało się pobrać zdjęcia profilowego:", error);
+            });
+    };
+
     useEffect(() => {
         CheckToken();
     }, []);
+    useEffect(() => {
+        CheckToken();
+    }, []);
+
+    const renderChoice = () => {
+        switch (choice) {
+            case 1:
+                return <UploadProfilePicture userId={userId} />;
+        }
+    }
     const ActiveExample = () => {
         return (
             <ListGroup as="ul">
-                <ListGroup.Item as="li">
-                    Cras justo odio
+                <ListGroup.Item as="li" onClick={() => setChoice(1)}>
+                    Zmien zdjecie profilowe
                 </ListGroup.Item>
                 <ListGroup.Item as="li">Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item as="li" disabled>
+                <ListGroup.Item as="li">
                     Morbi leo risus
                 </ListGroup.Item>
                 <ListGroup.Item as="li">Porta ac consectetur ac</ListGroup.Item>
@@ -58,9 +90,18 @@ const Profil = () => {
         <div>
         <Banner/>
         <h1>Twój Profil</h1>
-                <p>Witaj na stronie swojego profilu!</p>
+            <p>Witaj na stronie swojego profilu!</p>
+            {profilePicture ? (
+                <Image src={profilePicture} height="150px" width="150px" roundedCircle />
+            ) : (
+                <p>Ładowanie zdjęcia profilowego...</p>
+            )}
+            <h3>{username}</h3>
+            <hr></hr>
                 {/* Wywołanie ActiveExample */}
-                <ActiveExample />
+            <ActiveExample />
+            {/*{<UploadProfilePicture userId={userId} />*/}
+            {renderChoice() }
         </div>
     )
 }

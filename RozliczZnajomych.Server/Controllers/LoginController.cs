@@ -43,7 +43,16 @@ namespace RozliczZnajomych.Server.Controllers
             if (claimsPrincipal != null)
             {
                 var username = claimsPrincipal.FindFirst(ClaimTypes.Name)?.Value;
-                return Ok(new { Message = "Token is valid.", Username = username });
+                var userIdClaim = claimsPrincipal.FindFirst("userId")?.Value;
+                if (username != null && int.TryParse(userIdClaim, out var userId))
+                {
+                    return Ok(new
+                    {
+                        Message = "Token is valid.",
+                        Username = username,
+                        UserId = userId
+                    });
+                }
             }
             return Unauthorized("Invalid or expired token.");
         }

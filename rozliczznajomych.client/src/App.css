@@ -13,4 +13,11 @@ th, td {
     --bs-body-bg: #000; /* Czarny kolor tła */
     --bs-body-color: #fff; /* Biały kolor tekstu */
   }
+li:hover {
+    z-index: 2;
+    color: var(--bs-list-group-active-color);
+    background-color: var(--bs-list-group-active-bg);
+    border-color: var(--bs-list-group-active-border-color);
+    cursor: pointer;
+}
   

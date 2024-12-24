@@ -13,7 +13,7 @@ namespace RozliczZnajomych.Server.Services
         }
         public string AddUser(Account account)
         {
-           return _loginRepository.AddUser(account);
+            return _loginRepository.AddUser(account, null);
         }
         public bool CheckUserCredentials(string username, string password)
         {

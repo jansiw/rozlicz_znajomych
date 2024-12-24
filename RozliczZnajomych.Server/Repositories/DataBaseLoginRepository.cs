@@ -20,10 +20,14 @@ namespace RozliczZnajomych.Server.Repositories
             _dbContext = dbContext;
             _jwtSettings = jwtSettings.Value;
         }
-        public string AddUser(Account account)
+        public string AddUser(Account account, byte[]? profilePicture)
         {
             if (account != null)
             {
+                if (profilePicture == null)
+                {
+                    profilePicture = GetDefaultProfilePicture();
+                }
                 if (account.username != _dbContext.Accounts.FirstOrDefault(x => x.username == account.username)?.username)
                 {
                     account.password = HashPassword(account.password);
@@ -38,7 +42,18 @@ namespace RozliczZnajomych.Server.Repositories
             }
             return "Dane uzytkownika sa nieprawidlowe";
         }
-
+        public byte[] GetProfilePicture(int userId)
+        {
+            var user = _dbContext.Accounts.FirstOrDefault(u => u.userid == userId);
+            return user?.ProfilePicture ?? GetDefaultProfilePicture(); // Zwróci domyślne zdjęcie, jeśli brak zdjęcia użytkownika
+        }
+        private byte[] GetDefaultProfilePicture()
+        {
+            // Załóżmy, że masz domyślne zdjęcie zapisane w systemie plików
+            // Wczytujemy domyślny plik obrazu
+            string defaultImagePath = "img/default-profile-picture.jpg"; // Ścieżka do domyślnego zdjęcia
+            return File.ReadAllBytes(defaultImagePath); // Zwracamy obrazek jako tablicę bajtów
+        }
         public void UpdateUser(string username, string password, string user)
         {
             var existingUser = _dbContext.Accounts.FirstOrDefault(a => a.username == user);
@@ -52,6 +67,11 @@ namespace RozliczZnajomych.Server.Repositories
 
             _dbContext.SaveChanges();
         
+        }
+        public void UpdatePicture(Account user)
+        {
+            _dbContext.Accounts.Update(user);
+            _dbContext.SaveChanges();
         }
         public string HashPassword(string password)
         {
@@ -77,6 +97,11 @@ namespace RozliczZnajomych.Server.Repositories
 
         public string GenerateToken(string username)
         {
+            var user = _dbContext.Accounts.FirstOrDefault(x => x.username == username);
+            if (user == null)
+            {
+                throw new ArgumentException("User not found");
+            }
             var Handler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_jwtSettings.Secret);
             var descriptor = new SecurityTokenDescriptor
@@ -84,12 +109,17 @@ namespace RozliczZnajomych.Server.Repositories
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, username),
+                    new Claim("userId", user.userid.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.Lifetime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = Handler.CreateToken(descriptor);
             return Handler.WriteToken(token);
+        }
+        public Account GetUserById(int userId)
+        {
+            return _dbContext.Accounts.FirstOrDefault(a => a.userid == userId);
         }
 
         public ClaimsPrincipal ValidateToken(string token)
