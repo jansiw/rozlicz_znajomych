@@ -9,5 +9,6 @@ namespace RozliczZnajomych.Server.Services
         public bool CheckUserCredentials(string username, string password);
         public string GenerateToken(string username);
         public ClaimsPrincipal ValidateToken(string token);
+        public void UpdateUser(string username, string password, string user);
     }
 }

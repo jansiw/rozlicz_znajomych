@@ -38,6 +38,21 @@ namespace RozliczZnajomych.Server.Repositories
             }
             return "Dane uzytkownika sa nieprawidlowe";
         }
+
+        public void UpdateUser(string username, string password, string user)
+        {
+            var existingUser = _dbContext.Accounts.FirstOrDefault(a => a.username == user);
+            if (existingUser == null)
+            {
+                return;
+
+            }
+            existingUser.username = username;
+            existingUser.password = HashPassword(password);
+
+            _dbContext.SaveChanges();
+        
+        }
         public string HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())

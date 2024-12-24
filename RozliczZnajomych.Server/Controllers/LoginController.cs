@@ -47,6 +47,12 @@ namespace RozliczZnajomych.Server.Controllers
             }
             return Unauthorized("Invalid or expired token.");
         }
-
+        [HttpPatch]
+        public IActionResult UpdateUser (string username, string password, string user)
+        {
+            _loginService.UpdateUser(username, password,user);
+            return Ok();
+            
+        }
     }
 }

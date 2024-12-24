@@ -26,5 +26,9 @@ namespace RozliczZnajomych.Server.Services
         public ClaimsPrincipal ValidateToken(string token) { 
             return _loginRepository.ValidateToken(token);
         }
+        public void UpdateUser (string username, string password, string user)
+        {
+            _loginRepository.UpdateUser(username, password, user);
+        }
     }
 }

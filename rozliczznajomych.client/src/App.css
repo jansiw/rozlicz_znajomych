@@ -9,3 +9,8 @@ th, td {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+:root {
+    --bs-body-bg: #000; /* Czarny kolor tła */
+    --bs-body-color: #fff; /* Biały kolor tekstu */
+  }
+  

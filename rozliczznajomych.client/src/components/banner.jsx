@@ -9,21 +9,21 @@ const Banner = () => {
     const navigate = useNavigate();
     const { token, removeToken } = useToken();
 
-    // Funkcja do obs³ugi wylogowywania
+    // Funkcja do obsï¿½ugi wylogowywania
     const handleLogout = () => {
         removeToken();// Usuwamy token z localStorage
         navigate('/'); // Przekierowanie do strony logowania
     };
     //useEffect(() => {
     //    const storedToken = localStorage.getItem('token');
-    //    setToken(storedToken); // Ustawiamy stan tokena, jeœli jest zapisany w localStorage
+    //    setToken(storedToken); // Ustawiamy stan tokena, jeï¿½li jest zapisany w localStorage
     //}, []);
     return (
             <div className="banner">
             <Link className="text" to="/">Rozlicz znajomych</Link>
             <div className="links">
                 {token ? (<>
-                    <a className="link">Profil</a>
+                    <Link className="link" to="/profil">Profil</Link>
                     <a className="link">Lista znajomych</a>
                     <a className="link" onClick={handleLogout}>Wyloguj sie</a>
                 </>) :

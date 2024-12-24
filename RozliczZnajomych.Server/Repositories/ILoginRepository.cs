@@ -8,5 +8,6 @@ namespace RozliczZnajomych.Server.Repositories
         public bool CheckUserCredentials(string username, string pasword);
         public string GenerateToken(string username);
         public ClaimsPrincipal ValidateToken(string token);
+        public void UpdateUser(string username, string password, string user);
     }
 }
