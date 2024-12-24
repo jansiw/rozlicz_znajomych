@@ -20,13 +20,19 @@ const Register = () => {
         axios.post(`${API_BASE}/AddUser`, user)
             .then(response => {
                 if (response.status === 200) {
-                    alert('User added succesfully')
-                    navigate('/');
+                    document.getElementById('logininfo').innerHTML = "User added succesfully. Going back to homepage.";
+                    document.getElementById('logininfo').style.color = "green";
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 2000);
+                    //navigate('/');
                 }
             })
             .catch(error => {
                 if (error.response && error.response.status === 409) {
-                    alert(error.response.data);
+                    //alert(error.response.data);
+                    document.getElementById('logininfo').innerHTML = error.response.data;
+                    document.getElementById('logininfo').style.color = "red";
                     setIsLoading(0);
                 }
                 else {

@@ -27,12 +27,18 @@ function Login() {
                     const token = response.data.token;
                     setToken(token); // Ustawiamy token w kontekœcie i zapisujemy go w localStorage
                     //alert("Zalogowano pomyœlnie");
-                    navigate('/');
+                    document.getElementById('logininfo').innerHTML = "Zalogowano pomyslnie. Powrot do strony glownej";
+                    document.getElementById('logininfo').style.color = "green";
+                    setTimeout(() => {
+                        navigate('/');
+                    },2000)
+                    //navigate('/');
                 }
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    alert("B³êdne dane logowania");
+                    document.getElementById('logininfo').innerHTML = "Podano nieprawidlowe haslo";
+                    document.getElementById('logininfo').style.color = "red";
                     setIsLoading(0);
                 }
             });

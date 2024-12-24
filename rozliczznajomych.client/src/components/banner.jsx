@@ -22,7 +22,11 @@ const Banner = () => {
             <div className="banner">
             <Link className="text" to="/">Rozlicz znajomych</Link>
             <div className="links">
-                {token ? (<a className="link" onClick={handleLogout }>Wyloguj sie</a>) :
+                {token ? (<>
+                    <a className="link">Profil</a>
+                    <a className="link">Lista znajomych</a>
+                    <a className="link" onClick={handleLogout}>Wyloguj sie</a>
+                </>) :
                     (<>
                         <Link className="link" to="/login">Zaloguj sie</Link>
                         <Link className="link" to="/register">Zarejestruj sie</Link>

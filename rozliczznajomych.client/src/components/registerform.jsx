@@ -6,18 +6,19 @@ const RegisterForm = ({user, onSubmit,isLogin, isloading}) => {
             <form onSubmit={onSubmit}>
                 <input
                     type="text"
-                    placeholder="username"
+                    placeholder="nazwa uzytkownika"
                     value={user.username}
                     onChange={(e) => user.setUsername(e.target.value)}
                     required
                 ></input><br/>
                 <input
                     type="password"
-                    placeholder="password"
+                    placeholder="haslo"
                     value={user.password}
                     onChange={(e) => user.setPassword(e.target.value)}
                     required>
                 </input><hr />
+                <p id="logininfo"></p>
                 {isloading ? <CircularProgress/>:<button type="submit">{isLogin ? "Zaloguj sie" : "Zarejestruj sie"}</button>}
             </form>
         </div>
