@@ -4,6 +4,7 @@ import '../css/banner.css'
 import { useToken } from '../components/TokenContext';
 import {useEffect } from 'react'
 const Home = () => {
+    //test
     const { token } = useToken();
     useEffect(() => {
         document.title = "Rozlicz Znajomego";
