@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from "react-bootstrap/esm/Button";
 const UploadProfilePicture = ({ userId }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [message, setMessage] = useState("");
@@ -13,7 +15,7 @@ const UploadProfilePicture = ({ userId }) => {
         event.preventDefault();
 
         if (!selectedFile) {
-            setMessage("Please select a file first.");
+            setMessage("Najpierw wybierz zdjecie!");
             return;
         }
 
@@ -39,11 +41,14 @@ const UploadProfilePicture = ({ userId }) => {
 
     return (
         <div>
-            <h3>Upload Profile Picture</h3>
+            <h3>Zmien zdjecie profilowe</h3>
             <form onSubmit={handleSubmit}>
-                <input type="file" onChange={handleFileChange} />
-                <button type="submit">Upload</button>
+                <InputGroup>
+                    <Form.Control type="file" onChange={handleFileChange} ></Form.Control>
+                    <Button variant="outline-primary" type="submit">Zmien</Button>
+                </InputGroup>
             </form>
+            {message && <hr/>}
             {message && <p>{message}</p>}
         </div>
     );
