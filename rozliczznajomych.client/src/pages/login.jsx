@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useToken } from '../components/TokenContext';
 const API_BASE = "https://localhost:7257/api/Login"
 function Login() {
-    //sk
+    //sk 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -19,10 +19,9 @@ function Login() {
     useEffect(() => {
         document.title = "Zaloguj sie";
     })
-    const CheckLogin = (e) => {
-        e.preventDefault();
+    const CheckLogin = (values) => {
         setIsLoading(1);
-        axios.post('https://localhost:7257/api/Login/Login', { username, password })
+        axios.post('https://localhost:7257/api/Login/Login', { username:values.username, password:values.password })
             .then(response => {
                 if (response.status === 200) {
                     const token = response.data.token;
