@@ -9,6 +9,8 @@ import { useToken } from '../components/TokenContext';
 import { ListGroup } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import UploadProfilePicture from '../components/UploadProfilePicture';
+import ChangePassword from '../components/ChangePassword';
+import ChangeUsername from '../components/ChangeUsername';
 const API_BASE = "https://localhost:7257/api"
 
 
@@ -62,27 +64,26 @@ const Profil = () => {
     useEffect(() => {
         CheckToken();
     }, []);
-    useEffect(() => {
-        CheckToken();
-    }, []);
 
     const renderChoice = () => {
         switch (choice) {
             case 1:
                 return <UploadProfilePicture userId={userId} />;
+            case 2:
+                return <ChangePassword/>;
+            case 3:
+                return <ChangeUsername/>;
         }
     }
+
     const ActiveExample = () => {
         return (
             <ListGroup as="ul">
                 <ListGroup.Item as="li" onClick={() => setChoice(1)}>
                     Zmien zdjecie profilowe
                 </ListGroup.Item>
-                <ListGroup.Item as="li">Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item as="li">
-                    Morbi leo risus
-                </ListGroup.Item>
-                <ListGroup.Item as="li">Porta ac consectetur ac</ListGroup.Item>
+                <ListGroup.Item as="li" onClick={() => setChoice(2)}>Zmień hasło</ListGroup.Item>
+                <ListGroup.Item as="li"onClick={() => setChoice(3)}> Zmień nazwę użytkownika</ListGroup.Item>
             </ListGroup>
         );
     };
