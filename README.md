@@ -14,6 +14,12 @@
 
 Aplikacja mająca na celu wsparcie ciebie i twoich znajomych w rozliczeniu rachunków. 
 
+## Przed Uruchomieniem
+W folderze rozlicz_znajomych.client trzeba uruchomic komende:
+```bash
+  npm install
+```
+aby zainstalowalo nam wszystkie potrzebne biblioteki ktorych lista znajduje sie w pliku packages.json.
 ## Funkcje
 
 WIP
