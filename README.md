@@ -15,7 +15,7 @@
 Aplikacja mająca na celu wsparcie ciebie i twoich znajomych w rozliczeniu rachunków. 
 
 ## Przed Uruchomieniem
-W folderze rozlicz_znajomych.client trzeba uruchomic komende:
+W folderze rozliczznajomych.client trzeba uruchomic komende:
 ```bash
   npm install
 ```
