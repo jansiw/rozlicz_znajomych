@@ -70,9 +70,9 @@ const Profil = () => {
             case 1:
                 return <UploadProfilePicture userId={userId} />;
             case 2:
-                return <ChangePassword/>;
+                return <ChangePassword username={username}/>;
             case 3:
-                return <ChangeUsername/>;
+                return <ChangeUsername username={username} />;
         }
     }
 

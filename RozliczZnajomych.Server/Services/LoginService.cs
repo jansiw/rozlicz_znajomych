@@ -30,5 +30,13 @@ namespace RozliczZnajomych.Server.Services
         {
             _loginRepository.UpdateUser(username, password, user);
         }
+        public void UpdatePassword(string password, string user)
+        {
+            _loginRepository.UpdatePassword(password, user);
+        }
+        public void UpdateUsername(string username, string user)
+        {
+            _loginRepository.UpdateUsername(username, user);
+        }
     }
 }

@@ -12,5 +12,9 @@ namespace RozliczZnajomych.Server.Repositories
         public byte[] GetProfilePicture(int userId);
         public Account GetUserById(int userId);
         public void UpdatePicture(Account user);
+        public void UpdatePassword(string password, string user);
+        public void UpdateUsername(string username, string user);
+        
+
     }
 }

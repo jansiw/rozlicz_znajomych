@@ -6,7 +6,8 @@ import Button from "react-bootstrap/esm/Button";
 import Banner from "./banner";
 import { useToken } from '../components/TokenContext';
 
-const ChangePassword = () => {
+
+const ChangePassword = ({username}) => {
     const {token} = useToken();
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -20,37 +21,49 @@ const ChangePassword = () => {
             setMessage("Hasła nie są zgodne");
             return;
         }
-    }
-    return (
+        try {
+            const response = await axios.patch(
+                `https://localhost:7257/api/Login/UpdatePassword?username=${username}&password=${newPassword}`,
+                
+                
+        
+    );
+    setMessage("Hasło zmienione pomyślnie.");
+}
+catch (error) {
+    setMessage("Wystąpił błąd podczas zmiany hasła.");
+    console.error(error);
+}
+    };
+   return (
         <div>
             <Banner/>
-            <form onSubmit={handleChangePassword}>
+            <Form onSubmit={handleChangePassword}>
                 <div>
-                <label>Podaj stare hasło: </label><br />
-                <input type="password"
+                <Form.Label>Podaj stare hasło:</Form.Label><br />
+                <Form.Control
+                type="password"
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
                 required />
                 </div>
-                <div>
-                <label>Podaj nowe hasło:</label><br></br>
-                <input type="password"
+                <Form.Label>Podaj nowe hasło:</Form.Label><br />
+                <Form.Control
+                type="password"
                 value={newPassword}
                 onChange={(e)=> setNewPassword(e.target.value)}
                 required
                  />
-                 <div>
-                 </div>
-                 <label>Potwierdź nowe hasło: </label><br />
-                 <input type="password"
+                 <Form.Label>Potwierdź nowe hasło:</Form.Label><br />
+                 <Form.Control
+                 type="password"
                  value={confirmPassword}
                  onChange={(e) => setConfirmPassword(e.target.value)}
                  required
                   />
-                  </div>
-                  <button type="submit">Zmień hasło</button>
-    
-            </form>
+                  <Button type="submit">Zmień hasło</Button>
+            </Form>
+            {message && <p>{message}</p>}
     
         </div>
     )

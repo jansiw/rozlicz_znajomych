@@ -63,5 +63,17 @@ namespace RozliczZnajomych.Server.Controllers
             return Ok();
             
         }
+        [HttpPatch]
+        public IActionResult UpdatePassword(string username, string password)
+        {
+            _loginService.UpdateUser(username, password,username);
+            return Ok();
+        }
+        [HttpPatch]
+        public IActionResult UpdateUsername(string username, string user)
+        {
+            _loginService.UpdateUsername(username, user);
+            return Ok();
+        }
     }
 }

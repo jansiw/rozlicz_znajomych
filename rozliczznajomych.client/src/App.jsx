@@ -7,6 +7,7 @@ import Register from './pages/register.jsx'
 import Home from './pages/home.jsx'
 import { TokenProvider } from './components/TokenContext';
 import Profil from './pages/profil.jsx';
+import List from './pages/list.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import {CheckToken } from "./pages/login"
 function App() { 
@@ -23,7 +24,8 @@ function App() {
                 <Route path="/" element={<Home /> }/>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                 <Route path="/profil" element={<Profil />} /> 
+                 <Route path="/profil" element={<Profil />} />
+                 <Route path='/list' element={<List />} />
              </Routes>
             </Router>
         </TokenProvider>

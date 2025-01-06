@@ -68,6 +68,26 @@ namespace RozliczZnajomych.Server.Repositories
             _dbContext.SaveChanges();
         
         }
+        public void UpdatePassword(string password, string user)
+        {
+            var existingUser = _dbContext.Accounts.FirstOrDefault(a => a.username == user);
+            if (existingUser == null)
+            {
+                return;
+            }
+            existingUser.password = HashPassword(password);
+            _dbContext.SaveChanges();
+        }
+        public void UpdateUsername(string username, string user)
+        {
+            var existingUser = _dbContext.Accounts.FirstOrDefault(a => a.username == user);
+            if (existingUser == null)
+            {
+                return;
+            }
+            existingUser.username = username;
+            _dbContext.SaveChanges();
+        }
         public void UpdatePicture(Account user)
         {
             _dbContext.Accounts.Update(user);
