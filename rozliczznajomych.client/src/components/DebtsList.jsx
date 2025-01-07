@@ -5,11 +5,14 @@ import { useToken } from '../components/TokenContext';
 import Banner from '../components/banner';
 import { Button, ListGroup, Table} from 'react-bootstrap';
 import { FormControl, InputGroup } from 'react-bootstrap';
+import UpdateDebt from '../components/UpdateDebt';
 const API_BASE = "https://localhost:7257/api";
 const DebtsList = ({ debts,username,view}) => {
     const { token } = useToken();
     const [debtor, setDebtor] = useState("");
     const [amount, setAmount] = useState(0);
+    const [id, setId] = useState(null);
+    const [amount2, setAmount2] = useState(0);
 
     const handleAddDebt = async () => {
         try {
@@ -44,6 +47,12 @@ const DebtsList = ({ debts,username,view}) => {
             console.error("There was an error removing the debt!", error);
         }
     }
+    const showUpdateForm = (id,amount) => {
+        if (id!==null){
+            return <UpdateDebt debtId={id} currentAmount={amount}/>;
+        }
+        return null
+    }
     return (
         <div className="container mt-5 d-flex flex-column align-items-center">
             <ListGroup className="w-100">
@@ -52,14 +61,15 @@ const DebtsList = ({ debts,username,view}) => {
                         <ListGroup.Item key={debt.id}>
                             {view !== "myDebts" ? <>Użytkownik {debt.debtor} jest winien Ci {debt.amount} zł</> : <>Jesteś winien {debt.amount}zł użytkownikowi {debt.creditor}</>}
                         </ListGroup.Item>
-                        {view !== "myDebts" ? <ListGroup.Item variant="primary" style={{ cursor: "pointer" }} className="hover-darken">Edytuj</ListGroup.Item> : ""}
+                        {view !== "myDebts" ? <ListGroup.Item variant="primary" style={{ cursor: "pointer" }} className="hover-darken" onClick={() => { setId(debt.id); setAmount2(debt.amount); }}>Edytuj</ListGroup.Item> : ""}
                         {view !== "myDebts" ? <ListGroup.Item variant="danger" style={{ cursor: "pointer" }} onClick={() => RemoveDebt(debt.id)} className="hover-darken">Usuń</ListGroup.Item> : ""}
                     </ListGroup>
                 ))}
             </ListGroup>
-            {view!=="myDebts"?<hr className="w-100" />:""}
-            {view!=="myDebts"?<div className="mt-3 w-100">
-                <InputGroup className="mb-2">
+            {view !== "myDebts" ? <hr className="w-100" /> : ""}
+            {view !== "myDebts" ? <div className="mt-3 w-100">
+                {showUpdateForm(id,amount2)}
+                {/* <InputGroup className="mb-2">
                     <FormControl
                         type="text"
                         placeholder="Dłużnik"
@@ -75,8 +85,8 @@ const DebtsList = ({ debts,username,view}) => {
                         onChange={(e) => setAmount(e.target.value)}
                     />
                 </InputGroup>
-                <Button variant="primary" onClick={handleAddDebt}>Add New Debt</Button>
-            </div>:""}
+                <Button variant="primary" onClick={handleAddDebt}>Add New Debt</Button> */}
+            </div> : ""}
         </div>
     );
 };
