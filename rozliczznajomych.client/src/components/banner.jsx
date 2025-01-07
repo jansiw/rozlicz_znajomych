@@ -24,7 +24,7 @@ const Banner = () => {
             <div className="links">
                 {token ? (<>
                     <Link className="link" to="/profil">Profil</Link>
-                    <a className="link">Lista znajomych</a>
+                    <Link className="link" to="/list">Lista znajomych</Link>
                     <a className="link" onClick={handleLogout}>Wyloguj sie</a>
                 </>) :
                     (<>

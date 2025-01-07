@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RozliczZnajomych.Server.DataAccess;
 
@@ -10,9 +11,11 @@ using RozliczZnajomych.Server.DataAccess;
 namespace RozliczZnajomych.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250107094038_EditedFriendsDB")]
+    partial class EditedFriendsDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,28 +48,6 @@ namespace RozliczZnajomych.Server.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("RozliczZnajomych.Server.Models.Debts", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("Creditor")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Debtor")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Debts");
-                });
-
             modelBuilder.Entity("RozliczZnajomych.Server.Models.Friend", b =>
                 {
                     b.Property<int>("Id")
@@ -78,13 +59,11 @@ namespace RozliczZnajomych.Server.Migrations
                     b.Property<bool>("Accepted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("AddresseeName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("AddresseeName")
+                        .HasColumnType("int");
 
-                    b.Property<string>("RequesterName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("RequesterName")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

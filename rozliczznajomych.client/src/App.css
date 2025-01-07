@@ -20,4 +20,9 @@ li:hover {
     border-color: var(--bs-list-group-active-border-color);
     cursor: pointer;
 }
-  
+.table-sm {
+    border-radius: 12px 12px 0 0 !important;
+}
+.hover-darken:hover {
+    filter: brightness(90%);
+}

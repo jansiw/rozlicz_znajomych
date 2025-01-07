@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RozliczZnajomych.Server.DataAccess;
 
@@ -10,9 +11,11 @@ using RozliczZnajomych.Server.DataAccess;
 namespace RozliczZnajomych.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250107095231_EditedFriendsDBv2")]
+    partial class EditedFriendsDBv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,28 +46,6 @@ namespace RozliczZnajomych.Server.Migrations
                     b.HasKey("userid");
 
                     b.ToTable("Accounts");
-                });
-
-            modelBuilder.Entity("RozliczZnajomych.Server.Models.Debts", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("Creditor")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Debtor")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Debts");
                 });
 
             modelBuilder.Entity("RozliczZnajomych.Server.Models.Friend", b =>

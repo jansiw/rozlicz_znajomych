@@ -80,12 +80,27 @@ namespace RozliczZnajomych.Server.Repositories
         }
         public void UpdateUsername(string username, string user)
         {
-            var existingUser = _dbContext.Accounts.FirstOrDefault(a => a.username == user);
-            if (existingUser == null)
-            {
-                return;
-            }
+            var existingUser = _dbContext.Accounts.FirstOrDefault(a => a.username ==user);
+            if (existingUser == null) return;
+
             existingUser.username = username;
+
+            // Update 'Friends' references if they store the old username
+            var friends = _dbContext.Friends
+            .Where(f => f.RequesterName == user || f.AddresseeName == user)
+            .ToList();
+            foreach (var friend in friends)
+            {
+                if (friend.RequesterName == user) friend.RequesterName = username;
+                if (friend.AddresseeName == user) friend.AddresseeName = username;
+            }
+            var debts = _dbContext.Debts.Where(d => d.Debtor == user || d.Creditor == user).ToList();
+            foreach (var debt in debts)
+            {
+                if (debt.Debtor == user) debt.Debtor = username;
+                if (debt.Creditor == user) debt.Creditor = username;
+            }
+
             _dbContext.SaveChanges();
         }
         public void UpdatePicture(Account user)

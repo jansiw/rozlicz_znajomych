@@ -11,5 +11,7 @@ namespace RozliczZnajomych.Server.DataAccess
         }
 
         public DbSet<Account> Accounts { get; set; } = null!;
+        public DbSet<Friend>  Friends { get; set; } = null!;
+        public DbSet<Debts> Debts { get; set; } = null!;
     }
 }

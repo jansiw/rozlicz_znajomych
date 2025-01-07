@@ -9,6 +9,7 @@ import { TokenProvider } from './components/TokenContext';
 import Profil from './pages/profil.jsx';
 import List from './pages/list.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Debts from './pages/debts.jsx';
 //import {CheckToken } from "./pages/login"
 function App() { 
     //useEffect(() => {
@@ -26,6 +27,8 @@ function App() {
                 <Route path="/register" element={<Register />} />
                  <Route path="/profil" element={<Profil />} />
                  <Route path='/list' element={<List />} />
+                 <Route path='*' element={<h1>404 - Nie znaleziono strony</h1>} />
+                 <Route path='/debts' element={<Debts/>}/>
              </Routes>
             </Router>
         </TokenProvider>

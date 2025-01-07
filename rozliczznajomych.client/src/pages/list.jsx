@@ -21,6 +21,7 @@ const List = () => {
 
 return (
     <div>
+        <Banner />
     </div>
 
 )
