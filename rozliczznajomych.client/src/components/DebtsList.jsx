@@ -13,7 +13,7 @@ const DebtsList = ({ debts,username,view}) => {
     const [amount, setAmount] = useState(0);
     const [id, setId] = useState(null);
     const [amount2, setAmount2] = useState(0);
-
+    const totalDebt = debts.reduce((sum, debt) => sum + Number(debt.amount), 0);
     const handleAddDebt = async () => {
         try {
             const response = await axios.post(`${API_BASE}/Debts/AddDebt?debtor=${debtor}&creditor=${username}&amount=${amount}`, null, {
@@ -49,7 +49,7 @@ const DebtsList = ({ debts,username,view}) => {
     }
     const showUpdateForm = (id,amount) => {
         if (id!==null){
-            return <UpdateDebt debtId={id} currentAmount={amount}/>;
+            return <UpdateDebt debtId={id} currentAmount={amount} onUpdateComplete={()=>{setId(null);setAmount2(0);}}/>;
         }
         return null
     }
@@ -66,7 +66,8 @@ const DebtsList = ({ debts,username,view}) => {
                     </ListGroup>
                 ))}
             </ListGroup>
-            {view !== "myDebts" ? <hr className="w-100" /> : ""}
+            <hr className="w-100" />
+            {view ==="myDebts"? <h2 className="mt-3">Suma twoich długów: {totalDebt} zł</h2> : ""}
             {view !== "myDebts" ? <div className="mt-3 w-100">
                 {showUpdateForm(id,amount2)}
                 {/* <InputGroup className="mb-2">

@@ -78,11 +78,12 @@ namespace RozliczZnajomych.Server.Repositories
             existingUser.password = HashPassword(password);
             _dbContext.SaveChanges();
         }
-        public void UpdateUsername(string username, string user)
+        public string UpdateUsername(string username, string user)
         {
-            var existingUser = _dbContext.Accounts.FirstOrDefault(a => a.username ==user);
-            if (existingUser == null) return;
-
+            var existingUser = _dbContext.Accounts.FirstOrDefault(a => a.username == user);
+            if (existingUser == null) return "User not found";
+            var testUser = _dbContext.Accounts.FirstOrDefault(a => a.username == username);
+            if (testUser != null) return "Username already exists";
             existingUser.username = username;
 
             // Update 'Friends' references if they store the old username
@@ -102,6 +103,7 @@ namespace RozliczZnajomych.Server.Repositories
             }
 
             _dbContext.SaveChanges();
+            return "";
         }
         public void UpdatePicture(Account user)
         {
