@@ -72,8 +72,15 @@ namespace RozliczZnajomych.Server.Controllers
         [HttpPatch]
         public IActionResult UpdateUsername(string username, string user)
         {
-            _loginService.UpdateUsername(username, user);
-            return Ok();
+            var response =_loginService.UpdateUsername(username, user);
+            if (response == "Username already exists")
+            {
+                return Conflict();
+            }
+            else
+            {
+                return Ok();
+            }
         }
     }
 }

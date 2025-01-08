@@ -5,9 +5,10 @@ import { Button, Form, InputGroup, FormControl } from 'react-bootstrap';
 
 const API_BASE = "https://localhost:7257/api";
 
-const UpdateDebt = ({ debtId, currentAmount}) => {
+const UpdateDebt = ({ debtId, currentAmount, onUpdateComplete}) => {
     const { token } = useToken();
     const [amount, setAmount] = useState(currentAmount);
+    const [message, setMessage] = useState("");
 
     const handleUpdateDebt = async (e) => {
         e.preventDefault();
@@ -17,9 +18,11 @@ const UpdateDebt = ({ debtId, currentAmount}) => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            if (response.status === 200) {
-                alert("Debt updated successfully");
-                // onUpdate(); // Callback to refresh the debts list
+            if (response.status === 204) {
+                setMessage("Dług zaktualizowany pomyślnie.");
+                setTimeout(() => {
+                    onUpdateComplete(); // Callback to refresh the debts list
+                }, 1000);
             }
         } catch (error) {
             console.error("There was an error updating the debt!", error);
@@ -38,8 +41,9 @@ const UpdateDebt = ({ debtId, currentAmount}) => {
                     onChange={(e) => setAmount(e.target.value)}
                 />
             </InputGroup>
-            <Button variant="primary" type="submit">Zaktualizuj dług</Button>
+            <Button variant="primary" onClick={handleUpdateDebt}>Zaktualizuj dług</Button>
         </Form>
+        {message&&<p>{message}</p>}
         </>
     );
 };
